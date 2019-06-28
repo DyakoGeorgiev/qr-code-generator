@@ -5,8 +5,8 @@ import com.qr.code.generator.menu.Menu;
 
 public class Main {
   public static void main (String[] args) {
-    QRCodeReaderWriter qrCodeReaderWriter = new QRCodeReaderWriterImpl();
-    Menu menu = new Menu(qrCodeReaderWriter);
+    final QRCodeReaderWriter qrCodeReaderWriter = new QRCodeReaderWriterImpl();
+    final Menu menu = new Menu(qrCodeReaderWriter);
     menu.executeMenu();
   }
 }
