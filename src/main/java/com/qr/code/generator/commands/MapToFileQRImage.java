@@ -21,11 +21,11 @@ import java.util.Map;
 public class MapToFileQRImage implements QRImage {
 
   private Map<String,String> mappings;
-  private String fileName;
-  private String qrCodeName;
-  private Path pathToCreateFile;
+  private final String fileName;
+  private final String qrCodeName;
+  private final Path pathToCreateFile;
 
-  public MapToFileQRImage (String fileName, String qrCodeName, Path pathToCreateFile) {
+  public MapToFileQRImage (final String fileName, final String qrCodeName, final Path pathToCreateFile) {
     this.fileName = fileName;
     this.qrCodeName = qrCodeName;
     this.pathToCreateFile = pathToCreateFile;
@@ -34,26 +34,25 @@ public class MapToFileQRImage implements QRImage {
   @Override
   public void execute () throws IOException, NotFoundException, WriterException {
     mapQRCodeToFile(fileName,qrCodeName);
-    File file = Paths.get(pathToCreateFile.toString() + File.separator + ".qr_code.txt").toFile();
+    final File file = Paths.get(pathToCreateFile.toString() + File.separator + ".qr_code.txt").toFile();
 
     saveMappingToFile(file);
   }
 
-  private void mapQRCodeToFile(String fileName, String qrCodeName){
+  private void mapQRCodeToFile(final String fileName, String qrCodeName){
     mappings = new HashMap<>();
     mappings.put(fileName,qrCodeName);
   }
 
 
-
-  private void saveMappingToFile(File fileName) throws IOException {
-    Iterator it = mappings.entrySet().iterator();
+  private void saveMappingToFile(final File fileName) throws IOException {
+    final Iterator it = mappings.entrySet().iterator();
     try(PrintWriter out = new PrintWriter(
       new BufferedWriter(
         new OutputStreamWriter(
           new FileOutputStream(fileName,true), StandardCharsets.UTF_8)))) {
       while (it.hasNext()) {
-        Map.Entry pair = (Map.Entry) it.next();
+        final Map.Entry pair = (Map.Entry) it.next();
         out.println(pair.getKey() + ":" + pair.getValue());
         it.remove();
       }

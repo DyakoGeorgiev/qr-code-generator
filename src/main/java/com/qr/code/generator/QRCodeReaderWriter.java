@@ -8,10 +8,7 @@ import java.io.IOException;
 
 public interface QRCodeReaderWriter {
 
-
-
   void write(File sourceDir, int depth, File targetDir) throws IOException, WriterException, NotFoundException;
-
 
   void read(File sourceDir, File targetDir) throws IOException, NotFoundException, WriterException;
 }

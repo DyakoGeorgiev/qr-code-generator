@@ -12,8 +12,8 @@ import java.nio.file.NoSuchFileException;
 
 public class QRCodeReaderWriterImpl implements QRCodeReaderWriter{
 
-  private QRImage readQRImageDirectory;
-  private QRImage writeQRImageDirectory;
+  private  QRImage readQRImageDirectory;
+  private  QRImage writeQRImageDirectory;
 
   public QRCodeReaderWriterImpl(){}
 
@@ -31,9 +31,12 @@ public class QRCodeReaderWriterImpl implements QRCodeReaderWriter{
 
 
   @Override
-  public void write (File sourceDir, int depth, File targetDir) throws IOException, WriterException, NotFoundException {
-    if(!sourceDir.isDirectory()){
+  public void write (final File sourceDir, final int depth, final File targetDir) throws IOException, WriterException, NotFoundException {
+    if (!sourceDir.isDirectory()){
       throw new NoSuchFileException("Please provide path to existing directory.");
+    }
+    if (depth < 0) {
+      throw new IllegalArgumentException("The depth should be positive number.");
     }
     writeQRImageDirectory = new WriteQRImageDirectory(sourceDir, depth, targetDir);
     writeQRImageDirectory.execute();
@@ -53,7 +56,7 @@ public class QRCodeReaderWriterImpl implements QRCodeReaderWriter{
 
 
   @Override
-  public void read (File sourceDir, File targetDir) throws IOException, NotFoundException, WriterException {
+  public void read (final File sourceDir, final File targetDir) throws IOException, NotFoundException, WriterException {
     if(!sourceDir.isDirectory()){
       throw new NoSuchFileException("Please provide path to existing directory.");
     }

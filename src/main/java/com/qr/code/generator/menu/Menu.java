@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class Menu {
 
-  private static final String line = "-----------------------";
-  private QRCodeReaderWriter qrCodeReaderWriter;
+  private static final String LINE = "-----------------------";
+  private final QRCodeReaderWriter  qrCodeReaderWriter;
 
   public Menu(QRCodeReaderWriter qrCodeReaderWriter){
     this.qrCodeReaderWriter = qrCodeReaderWriter;
@@ -18,13 +18,14 @@ public class Menu {
 
   private int getUserChoiceOperation() {
 
-    Scanner in = new Scanner(System.in);
+    final Scanner in = new Scanner(System.in);
     int choice;
     System.out.println();
     System.out.println("The program works only if the files in the directories are .txt format!");
+    System.out.println("The files should not have too much text, because the program will crash due to file content limitations ");
     System.out.println("What operation do you want to execute?");
-    System.out.println("Type the operation number in the command line.");
-    System.out.println(line);
+    System.out.println("Type the operation number in the command LINE.");
+    System.out.println(LINE);
     System.out.println("1 - Write QRCodes to target directory preserving source directory hierarchy");
     System.out.println("2 - Read QRCode directory and restore the original .txt files.");
     System.out.println("Type 0 to exit the program.");
@@ -33,7 +34,7 @@ public class Menu {
   }
 
   public void executeMenu() {
-    Scanner in = new Scanner(System.in);
+    final Scanner in = new Scanner(System.in);
     while (true) {
       switch (getUserChoiceOperation()) {
         case 0:
@@ -41,14 +42,14 @@ public class Menu {
           return;
         case 1:
           System.out.println("Type the source directory (Example: F:\\TextFiles) : ");
-          String sourcePath = in.nextLine();
-          File sourceDir = new File(sourcePath);
+          final String sourcePath = in.nextLine();
+          final File sourceDir = new File(sourcePath);
           System.out.println("Type the depth that you want to go. (Example: 5) : ");
-          int depth = in.nextInt();
+          final int depth = in.nextInt();
           in.nextLine();
           System.out.println("Type the target directory (Example: F:\\TextFilesQRCodes) : ");
-          String targetPath = in.nextLine();
-          File targetDir = new File(targetPath);
+          final String targetPath = in.nextLine();
+          final File targetDir = new File(targetPath);
           try {
             qrCodeReaderWriter.write(sourceDir,depth,targetDir);
           } catch (IOException | WriterException | NotFoundException e) {
@@ -57,13 +58,12 @@ public class Menu {
           System.out.println("Done!");
           break;
         case 2:
-          System.out.println("Type the source directory (Example: F:\\TextFiles) : ");
-          String source = in.nextLine();
-          File sourceDirectory = new File(source);
-          in.nextLine();
-          System.out.println("Type the target directory (Example: F:\\TextFilesQRCodes) : ");
-          String target = in.nextLine();
-          File targetDirectory = new File(target);
+          System.out.println("Type the source directory (Example: F:\\TextFilesQRCodes) : ");
+          final String source = in.nextLine();
+          final File sourceDirectory = new File(source);
+          System.out.println("Type the target directory (Example: F:\\TextFiles) : ");
+          final String target = in.nextLine();
+          final File targetDirectory = new File(target);
           try {
             qrCodeReaderWriter.read(sourceDirectory,targetDirectory);
           } catch (IOException | WriterException | NotFoundException e) {

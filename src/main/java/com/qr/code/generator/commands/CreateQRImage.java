@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class CreateQRImage implements QRImage {
 
-  private File imageFile;
-  private String dataToBeEncrypted;
+  private final File imageFile;
+  private final String dataToBeEncrypted;
 
   public CreateQRImage (File imageFile, String dataToBeEncrypted) {
     this.imageFile = imageFile;
@@ -20,7 +20,7 @@ public class CreateQRImage implements QRImage {
 
   @Override
   public void execute () {
-    ByteArrayOutputStream out = QRCode.from(dataToBeEncrypted)
+    final ByteArrayOutputStream out = QRCode.from(dataToBeEncrypted)
       .to(ImageType.PNG).stream();
 
     try(FileOutputStream fout = new FileOutputStream(imageFile)){

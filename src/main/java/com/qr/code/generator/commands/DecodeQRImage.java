@@ -15,20 +15,20 @@ import java.io.IOException;
 
 public class DecodeQRImage implements QRImage {
 
-  private File qrCodeImage;
+  private final File qrCodeImage;
   private String text;
 
-  public DecodeQRImage (File qrCodeImage) {
+  public DecodeQRImage (final File qrCodeImage) {
     this.qrCodeImage = qrCodeImage;
   }
 
   @Override
   public void execute () throws IOException, NotFoundException {
-    BufferedImage bufferedImage = ImageIO.read(qrCodeImage);
-    LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
-    BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+    final BufferedImage bufferedImage = ImageIO.read(qrCodeImage);
+    final LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
+    final BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
-    Result result = new MultiFormatReader().decode(bitmap);
+    final Result result = new MultiFormatReader().decode(bitmap);
     text = result.getText();
   }
 
