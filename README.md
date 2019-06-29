@@ -24,3 +24,8 @@ Given existing directory **(sourceDir)** , the program reads QR code files and s
     QRCodeReaderWriter qrCodeReaderWriter = new QRCodeReaderWriterImpl();
     qrCodeReaderWriter.read(sourceDirectory,targetDirectory);
 
+## Restrictions
+
+The program will only look for **.txt** files with size no more than 1500 bytes.
+All other files will be excluded from generating their QR Code due to insufficient
+QR Code reading from appropriate scanners.
